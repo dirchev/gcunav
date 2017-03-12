@@ -1,7 +1,7 @@
 var path = require('path')
 var express = require('express')
 var port = process.env.PORT || 3000
-var ip = process.env.IP || '127.0.0.1'
+var ip = process.env.IP
 
 // init the app
 var app = express()
@@ -18,7 +18,7 @@ app.use(express.static('public'))
 require('./lib/loadRoutes')(app, path.join(process.cwd(), '/server/http'), function () {
   // start the server
   app.listen(port, ip, function () {
-    console.log('Example app listening on port 3000!')
+    console.log('App runnin on port ' + port)
   })
 })
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head.ejs') %>
+  <body style="padding-top: 10px;">
+    <div class="container-fluid">
+      <%- include('../components/navigation.ejs') %>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">Search a place</div>
+        <div class="panel-body">
+          <form class="form" action="/search-place" method="GET">
+            <div class="form-group">
+              <input type="text" value="<%= searchText %>" class="form-control" name="text" placeholder="Search a place" />
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+        </div>
+        <% if (typeof places !== 'undefined') { %>
+          <div class="list-group">
+            <% places.forEach(function (place) { %>
+              <div class="list-group-item">
+                <h4 class="list-group-item-heading"><%= place.name %></h4>
+                <p class="list-group-item-text"><%= place.description %></p>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </div>
+
+    </div>
+  <%- include('../layout/body-end.ejs') %>
+  </body>
+</html>

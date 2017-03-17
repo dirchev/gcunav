@@ -3,6 +3,15 @@ var Floor = $require('server/models/floor')
 var Building = $require('server/models/building')
 
 module.exports = function (helpers) {
+  var loadFloor = function (req, res, next) {
+    if (!req.params.floor_id) return next()
+    Floor.getById(req.params.floor_id, function (err, result) {
+      if (err) return next(err)
+      req.floor = result[0]
+      next()
+    })
+  }
+
   var loadBuilding = function (req, res, next) {
     if (!req.params.floor_id) return next()
     Building.getByFloorId(req.params.floor_id, function (err, result) {
@@ -13,10 +22,19 @@ module.exports = function (helpers) {
   }
 
   return {
+    'GET /': [
+      helpers.allowAdmin,
+      loadFloor,
+      loadBuilding,
+      function (req, res, next) {
+        res.viewData = {building: req.building, floor: req.floor}
+        res.view = 'admin/floor'
+        next()
+      }
+    ],
     'POST /update': [
       helpers.allowAdmin,
       function (req, res, next) {
-        console.log(req.body)
         Floor.update(req.body, function (err) {
           if (err) return next(err)
           res.redirect('/admin/floors/' + req.params.floor_id)

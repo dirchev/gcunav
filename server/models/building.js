@@ -8,8 +8,16 @@ module.exports = {
   getById: function (building_id, next) {
     connection.query('SELECT * FROM buildings WHERE building_id = ?', building_id, next)
   },
-  getByFloorId: function (building_id, next) {
-    connection.query('SELECT buildings.* FROM buildings INNER JOIN floors WHERE floor_id = ?', building_id, next)
+  getByFloorId: function (floor_id, next) {
+    connection.query(
+      `
+        SELECT buildings.* FROM buildings
+          INNER JOIN floors ON buildings.building_id = floors.building_id
+          WHERE floors.floor_id = ?
+      `,
+      floor_id,
+      next
+    )
   },
   insert: function (building, next) {
     connection.query('INSERT INTO buildings SET ?', building, next)

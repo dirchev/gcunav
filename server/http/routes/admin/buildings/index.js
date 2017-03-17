@@ -22,24 +22,6 @@ module.exports = function (helpers) {
           res.redirect('/admin/buildings')
         })
       }
-    ],
-    'POST /update': [
-      helpers.allowAdmin,
-      function (req, res, next) {
-        Building.update(req.body, function (err) {
-          if (err) return next(err)
-          res.redirect('/admin/buildings')
-        })
-      }
-    ],
-    'POST /:building_id/delete': [
-      helpers.allowAdmin,
-      function (req, res, next) {
-        Building.deleteById(req.params.building_id, function (err) {
-          if (err) return next(err)
-          res.redirect('/admin/buildings')
-        })
-      }
     ]
   }
 }

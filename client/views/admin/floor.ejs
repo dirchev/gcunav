@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../../layout/head.ejs') %>
+  <body style="padding-top: 10px;">
+    <div class="container-fluid">
+
+      <%- include('../../components/admin-navigation.ejs') %>
+      <div class="jumbotron">
+        <h1>
+          <%= floor.name %>
+          <small><%= building.name %></small>
+        </h1>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <%- include('../../components/admin/floors/form.ejs', floor)%>
+        </div>
+
+        <div class="col-md-6">
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              Danger Zone!
+            </div>
+            <div class="panel-body">
+              <div class="alert alert-danger">
+                <p>
+                  If you delete this floor, this will delete all of the rooms associated with it.
+                </p>
+              </div>
+              <form action="/admin/floors/<%= floor.floor_id %>/delete" method="POST">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <%- include('../../layout/body-end.ejs') %>
+  </body>
+</html>

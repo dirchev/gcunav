@@ -1,8 +1,9 @@
 var $require = require(process.cwd() + '/lib/require')
 var Building = $require('server/models/building')
+var Floor = $require('server/models/floor')
 
 module.exports = function (helpers) {
-  var loadBuidlingToEdit = function (req, res, next) {
+  var loadBuilding = function (req, res, next) {
     if (!req.params.building_id) return next()
     Building.getById(req.params.building_id, function (err, result) {
       if (err) return next(err)
@@ -11,13 +12,23 @@ module.exports = function (helpers) {
     })
   }
 
+  var loadBuildingFloors = function (req, res, next) {
+    if (!req.params.building_id) return next()
+    Floor.getByBuildingId(req.params.building_id, function (err, result) {
+      if (err) return next(err)
+      req.floors = result
+      next()
+    })
+  }
+
   return {
     'GET /': [
       helpers.allowAdmin,
-      loadBuidlingToEdit,
+      loadBuilding,
+      loadBuildingFloors,
       function (req, res, next) {
-        res.viewData = {building: req.building}
-        res.view = 'admin/buildings/building'
+        res.viewData = {building: req.building, floors: req.floors}
+        res.view = 'admin/building'
         next()
       }
     ],

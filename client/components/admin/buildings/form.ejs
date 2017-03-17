@@ -1,0 +1,32 @@
+<% if (typeof buildingToEdit === 'undefined') { %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      New Building
+    </div>
+    <div class="panel-body">
+      <form class="form" action="/admin/buildings" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" value="" class="form-control" name="name" placeholder="Name" />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+    </div>
+  </div>
+<% } else { %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Edit Building
+    </div>
+    <div class="panel-body">
+      <form class="form" action="/admin/buildings/update" method="POST">
+        <input type="hidden" value="<%= buildingToEdit.building_id %>" name="building_id"/>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" value="<%= buildingToEdit.name %>" class="form-control" name="name" placeholder="Name" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+<% } %>

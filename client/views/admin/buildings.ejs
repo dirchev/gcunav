@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../../layout/head.ejs') %>
+  <body style="padding-top: 10px;">
+    <div class="container-fluid">
+
+      <%- include('../../components/admin-navigation.ejs') %>
+      <div class="jumbotron">
+        <h1>Buildings</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <%- include('../../components/admin/buildings/form.ejs', buildingToEdit) %>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Buildings list
+            </div>
+            <div class="list-group">
+              <% buildings.forEach(function (building) { %>
+                <div class="list-group-item">
+                  <h4 class="list-group-item-heading">
+                    <%= building.building_id + ' ' + building.name %>
+                  </h4>
+                  <a class="btn btn-sm btn-primary" href="/admin/buildings?building_id=<%= building.building_id %>">Edit</a>
+                  <form action="/admin/buildings/<%= building.building_id %>/delete" method="POST">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                  </form>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('../../layout/body-end.ejs') %>
+  </body>
+</html>

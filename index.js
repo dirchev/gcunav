@@ -1,3 +1,4 @@
+var bodyParser = require('body-parser')
 var path = require('path')
 var express = require('express')
 var port = process.env.PORT || 3000
@@ -5,6 +6,10 @@ var ip = process.env.IP
 
 // init the app
 var app = express()
+
+// body parser
+app.use(bodyParser.urlencoded())
+app.use(bodyParser.json())
 
 // set view engine
 app.set('view engine', 'ejs')

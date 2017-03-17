@@ -3,10 +3,10 @@ var Building = $require('server/models/building')
 
 module.exports = function (helpers) {
   var loadBuidlingToEdit = function (req, res, next) {
-    if (!req.query.building_id) return next()
-    Building.getById(req.query.building_id, function (err, result) {
+    if (!req.params.building_id) return next()
+    Building.getById(req.params.building_id, function (err, result) {
       if (err) return next(err)
-      req.buildingToEdit = result[0]
+      req.building = result[0]
       next()
     })
   }
@@ -16,21 +16,9 @@ module.exports = function (helpers) {
       helpers.allowAdmin,
       loadBuidlingToEdit,
       function (req, res, next) {
-        Building.getAll(function (err, results, fields) {
-          if (err) return next(err)
-          res.viewData = {buildings: results, buildingToEdit: req.buildingToEdit}
-          res.view = 'admin/buildings'
-          next()
-        })
-      }
-    ],
-    'POST /': [
-      helpers.allowAdmin,
-      function (req, res, next) {
-        Building.insert(req.body, function (err) {
-          if (err) return next(err)
-          res.redirect('/admin/buildings')
-        })
+        res.viewData = {building: req.building}
+        res.view = 'admin/buildings/building'
+        next()
       }
     ],
     'POST /update': [
@@ -38,11 +26,11 @@ module.exports = function (helpers) {
       function (req, res, next) {
         Building.update(req.body, function (err) {
           if (err) return next(err)
-          res.redirect('/admin/buildings')
+          res.redirect('/admin/buildings/' + req.params.building_id + '/')
         })
       }
     ],
-    'POST /:building_id/delete': [
+    'POST /delete': [
       helpers.allowAdmin,
       function (req, res, next) {
         Building.deleteById(req.params.building_id, function (err) {

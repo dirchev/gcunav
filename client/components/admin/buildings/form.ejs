@@ -1,4 +1,4 @@
-<% if (typeof buildingToEdit === 'undefined') { %>
+<% if (typeof building === 'undefined') { %>
   <div class="panel panel-default">
     <div class="panel-heading">
       New Building
@@ -19,11 +19,11 @@
       Edit Building
     </div>
     <div class="panel-body">
-      <form class="form" action="/admin/buildings/update" method="POST">
-        <input type="hidden" value="<%= buildingToEdit.building_id %>" name="building_id"/>
+      <form class="form" action="/admin/buildings/<%= building.building_id %>/update" method="POST">
+        <input type="hidden" value="<%= building.building_id %>" name="building_id"/>
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" value="<%= buildingToEdit.name %>" class="form-control" name="name" placeholder="Name" />
+          <input type="text" value="<%= building.name %>" class="form-control" name="name" placeholder="Name" />
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
       </form>

@@ -1,0 +1,26 @@
+<% if (typeof room === 'undefined') { %>
+  <form class="form" action="/admin/rooms" method="POST">
+    <div class="form-group">
+      <input type="hidden" value="<%= floor.floor_id %>" name="floor_id"/>
+      <label for="name">Name</label>
+      <input type="text" value="" class="form-control" name="name" placeholder="Name" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
+<% } else { %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Edit Room
+    </div>
+    <div class="panel-body">
+      <form class="form" action="/admin/rooms/<%= room.room_id %>/update" method="POST">
+        <input type="hidden" value="<%= room.room_id %>" name="room_id"/>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" value="<%= room.name %>" class="form-control" name="name" placeholder="Name" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+<% } %>

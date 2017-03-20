@@ -11,6 +11,17 @@ module.exports = {
   getByBuildingId: function (building_id, next) {
     connection.query('SELECT * FROM floors WHERE building_id = ?', building_id, next)
   },
+  getByRoomId: function (room_id, next) {
+    connection.query(
+      `
+        SELECT floors.* FROM floors
+          INNER JOIN rooms ON floors.floor_id = rooms.floor_id
+          WHERE rooms.room_id = ?
+      `,
+      room_id,
+      next
+    )
+  },
   insert: function (floor, next) {
     connection.query('INSERT INTO floors SET ?', floor, next)
   },

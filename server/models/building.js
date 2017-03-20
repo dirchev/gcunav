@@ -19,6 +19,18 @@ module.exports = {
       next
     )
   },
+  getByRoomId: function (room_id, next) {
+    connection.query(
+      `
+        SELECT buildings.* FROM buildings
+          INNER JOIN floors ON buildings.building_id = floors.building_id
+          INNER JOIN rooms ON floors.floor_id = rooms.floor_id
+          WHERE rooms.room_id = ?
+      `,
+      room_id,
+      next
+    )
+  },
   insert: function (building, next) {
     connection.query('INSERT INTO buildings SET ?', building, next)
   },

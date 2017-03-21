@@ -15,12 +15,14 @@
             <button type="submit" class="btn btn-primary">Search</button>
           </form>
         </div>
-        <% if (typeof places !== 'undefined') { %>
+        <% if (typeof rooms !== 'undefined') { %>
           <div class="list-group">
-            <% places.forEach(function (place) { %>
+            <% rooms.forEach(function (room) { %>
               <div class="list-group-item">
-                <h4 class="list-group-item-heading"><%= place.name %></h4>
-                <p class="list-group-item-text"><%= place.description %></p>
+                <h4 class="list-group-item-heading"><%= room.name %></h4>
+                <p class="list-group-item-text">
+                  Dolor dignissimos corporis eos ex libero sint illo quod tempora consequuntur animi perspiciatis neque quibusdam quos voluptatibus laborum quae cum quis. Nostrum eveniet quas illo distinctio corrupti doloribus molestiae explicabo.
+                </p>
               </div>
             <% }) %>
           </div>

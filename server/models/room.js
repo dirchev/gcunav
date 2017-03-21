@@ -23,5 +23,13 @@ module.exports = {
   },
   deleteById: function (room_id, next) {
     connection.query('DELETE FROM rooms WHERE room_id = ?', room_id, next)
+  },
+  search: function (text, next) {
+    if (text) {
+      text = '%' + text + '%'
+      connection.query('SELECT * FROM rooms WHERE name LIKE ?', text, next)
+    } else {
+      this.getAll(next)
+    }
   }
 }

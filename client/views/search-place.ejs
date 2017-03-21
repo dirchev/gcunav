@@ -18,12 +18,9 @@
         <% if (typeof rooms !== 'undefined') { %>
           <div class="list-group">
             <% rooms.forEach(function (room) { %>
-              <div class="list-group-item">
+              <a class="list-group-item" href="/room/<%= room.room_id %>">
                 <h4 class="list-group-item-heading"><%= room.name %></h4>
-                <p class="list-group-item-text">
-                  Dolor dignissimos corporis eos ex libero sint illo quod tempora consequuntur animi perspiciatis neque quibusdam quos voluptatibus laborum quae cum quis. Nostrum eveniet quas illo distinctio corrupti doloribus molestiae explicabo.
-                </p>
-              </div>
+              </a>
             <% }) %>
           </div>
         <% } %>

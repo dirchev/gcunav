@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head.ejs') %>
+  <body style="padding-top: 10px;">
+    <div class="container-fluid">
+
+      <%- include('../components/navigation.ejs') %>
+      <div class="jumbotron">
+        <h1><%= room.name  %></h1>
+        <p>
+          <%= floor.name %> Floor of <%= building.name %>
+        </p>
+      </div>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Navigate me from
+        </div>
+        <div class="list-group">
+          <a class="list-group-item" href="">Saltire Centre</a>
+          <a class="list-group-item" href="">George Moore Canteen</a>
+        </div>
+        <div class="panel-body">
+          <form class="form" action="" method="">
+            <div class="form-group">
+              <input type="hidden" value="" name="floor_id"/>
+              <label for="name">Enter starting location</label>
+              <input type="text" value="" class="form-control" name="name" placeholder="starting location" />
+            </div>
+            <button type="submit" class="btn btn-primary">Navigate</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <%- include('../layout/body-end.ejs') %>
+  </body>
+</html>

@@ -1,6 +1,8 @@
 var bodyParser = require('body-parser')
 var path = require('path')
 var express = require('express')
+var cookieParser = require('cookie-parser')
+
 var port = process.env.PORT || 3000
 var ip = process.env.IP
 
@@ -10,6 +12,7 @@ var app = express()
 // body parser
 app.use(bodyParser.urlencoded())
 app.use(bodyParser.json())
+app.use(cookieParser())
 
 // set view engine
 app.set('view engine', 'ejs')

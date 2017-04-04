@@ -1,3 +1,6 @@
+<%- include('./auth/login.ejs') %>
+<%- include('./auth/sign-up.ejs') %>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -19,6 +22,16 @@
 Find A Place</a></li>
         <li><a href="/about"><i class="fa fa-users" aria-hidden="true"></i>
 About</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#" data-toggle="modal" data-target="#login-modal"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+        </li>
+        <li>
+          <a href="#" data-toggle="modal" data-target="#signup-modal"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+        </li>
+        About</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

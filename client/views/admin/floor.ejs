@@ -18,21 +18,7 @@
         </div>
 
         <div class="col-md-6">
-          <div class="panel panel-danger">
-            <div class="panel-heading">
-              Danger Zone!
-            </div>
-            <div class="panel-body">
-              <div class="alert alert-danger">
-                <p>
-                  If you delete this floor, this will delete all of the rooms associated with it.
-                </p>
-              </div>
-              <form action="/admin/floors/<%= floor.floor_id %>/delete" method="POST">
-                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-              </form>
-            </div>
-          </div>
+          <%- include('../../components/admin/floors/floor-links-form.ejs', {floor: floor, floorlinks: floorlinks})%>
         </div>
       </div>
 
@@ -52,6 +38,22 @@
               </h4>
             </a>
           <% }) %>
+        </div>
+      </div>
+
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          Danger Zone!
+        </div>
+        <div class="panel-body">
+          <div class="alert alert-danger">
+            <p>
+              If you delete this floor, this will delete all of the rooms associated with it.
+            </p>
+          </div>
+          <form action="/admin/floors/<%= floor.floor_id %>/delete" method="POST">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
         </div>
       </div>
     </div>

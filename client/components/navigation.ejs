@@ -24,15 +24,27 @@ Find A Place</a></li>
 About</a></li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="#" data-toggle="modal" data-target="#login-modal"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
-        </li>
-        <li>
-          <a href="#" data-toggle="modal" data-target="#signup-modal"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
-        </li>
-        About</a></li>
-      </ul>
+      <% if (typeof loggedUser === 'undefined') { %>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#" data-toggle="modal" data-target="#login-modal"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+          </li>
+          <li>
+            <a href="#" data-toggle="modal" data-target="#signup-modal"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+          </li>
+          About</a></li>
+        </ul>
+      <% } else { %>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <p class="navbar-text">logged in as <b><%= loggedUser.email %></b></p>
+          </li>
+          <li>
+            <a href="/auth/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a>
+          </li>
+          About</a></li>
+        </ul>
+      <% } %>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

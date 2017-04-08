@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
           <label for="name">Description</label>
-          <input type="text" value="" class="form-control" name="description" placeholder="Description" />
+          <textarea name="description" rows="3" class="form-control"></textarea>
         </div>
         <div class="form-group">
           <label for="name">Photo</label>
@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
           <label for="name">Description</label>
-          <input type="text" value="<%= building.description %>" class="form-control" name="description" placeholder="Description" />
+          <textarea name="description" rows="3" class="form-control"><%= building.description %></textarea>
         </div>
         <div class="row">
           <div class="col-md-7">
@@ -45,9 +45,13 @@
             </div>
           </div>
           <div class="col-md-5">
-            <span class="thumbnail">
-              <img src="<%= building.picture_url %>" alt="building picture">
-            </span>
+            <% if (building.picture_url) { %>
+              <span class="thumbnail">
+                <img src="<%= building.picture_url %>" alt="building picture">
+              </span>
+            <% } else { %>
+              <div class="alert alert-info">No photo uploaded</div>
+            <% } %>
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>

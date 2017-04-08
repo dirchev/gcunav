@@ -1,9 +1,17 @@
 <% if (typeof room === 'undefined') { %>
-  <form class="form" action="/admin/rooms" method="POST">
+  <form enctype="multipart/form-data" class="form" action="/admin/rooms" method="POST">
     <div class="form-group">
       <input type="hidden" value="<%= floor.floor_id %>" name="floor_id"/>
       <label for="name">Name</label>
       <input type="text" value="" class="form-control" name="name" placeholder="Name" />
+    </div>
+    <div class="form-group">
+      <label for="name">Description</label>
+      <textarea name="description" rows="3" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="name">Photo</label>
+      <input type="file" value="" class="form-control" name="picture" />
     </div>
     <button type="submit" class="btn btn-primary">Create</button>
   </form>
@@ -13,11 +21,32 @@
       Edit Room
     </div>
     <div class="panel-body">
-      <form class="form" action="/admin/rooms/<%= room.room_id %>/update" method="POST">
+      <form enctype="multipart/form-data" class="form" action="/admin/rooms/<%= room.room_id %>/update" method="POST">
         <input type="hidden" value="<%= room.room_id %>" name="room_id"/>
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" value="<%= room.name %>" class="form-control" name="name" placeholder="Name" />
+        </div>
+        <div class="form-group">
+          <label for="name">Description</label>
+          <textarea name="description" rows="3" class="form-control"><%= room.description %></textarea>
+        </div>
+        <div class="row">
+          <div class="col-md-7">
+            <div class="form-group">
+              <label for="name">Photo</label>
+              <input type="file" value="" class="form-control" name="picture" />
+            </div>
+          </div>
+          <div class="col-md-5">
+            <% if (room.picture_url) { %>
+              <span class="thumbnail">
+                <img src="<%= room.picture_url %>" alt="room picture">
+              </span>
+            <% } else { %>
+              <div class="alert alert-info">No photo uploaded</div>
+            <% } %>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
       </form>

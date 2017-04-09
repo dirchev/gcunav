@@ -5,8 +5,29 @@ module.exports = {
   getAll: function (next) {
     connection.query('SELECT * FROM floors', next)
   },
+  getAllPopulated: function (next) {
+    connection.query('SELECT * FROM floors INNER JOIN buildings ON floors.building_id = buildings.building_id', next)
+  },
   getById: function (floor_id, next) {
     connection.query('SELECT * FROM floors WHERE floor_id = ?', floor_id, next)
+  },
+  getByBuildingId: function (building_id, next) {
+    connection.query('SELECT * FROM floors WHERE building_id = ?', building_id, next)
+  },
+  getByIdPopulated: function (floor_id, next) {
+    connection.query(
+      `
+        SELECT
+          buildings.name as building_name,
+          floors.name as floor_name
+          FROM floors
+          INNER JOIN buildings
+          ON floors.building_id = buildings.building_id
+       WHERE floor_id = ?
+      `,
+      floor_id,
+      next
+    )
   },
   getByBuildingId: function (building_id, next) {
     connection.query('SELECT * FROM floors WHERE building_id = ?', building_id, next)

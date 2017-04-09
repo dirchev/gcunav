@@ -8,6 +8,25 @@ module.exports = {
   getById: function (room_id, next) {
     connection.query('SELECT * FROM rooms WHERE room_id = ?', room_id, next)
   },
+  getByIdPopulated: function (room_id, next) {
+    connection.query(
+      `
+        SELECT
+          rooms.*,
+          buildings.name as building_name,
+          floors.name as floor_name
+        FROM rooms
+        INNER JOIN floors ON floors.floor_id = rooms.floor_id
+        INNER JOIN buildings ON floors.building_id = buildings.building_id
+        WHERE room_id = ?
+      `,
+      room_id,
+      function (err, found) {
+        if (err) return next(err)
+        return next(null, found[0])
+      }
+    )
+  },
   getByFloorId: function (floor_id, next) {
     connection.query('SELECT * FROM rooms WHERE floor_id = ?', floor_id, next)
   },

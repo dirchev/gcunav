@@ -68,8 +68,6 @@ var getRawSteps = function (room1, room2, next) {
     var room1 = rooms[0]
     var room2 = rooms[1]
 
-    console.log(JSON.stringify(room1, null, 2))
-    console.log(JSON.stringify(room2, null, 2))
     if (room1.building_id === room2.building_id) {
       steps.push({
         action: 'floor',
@@ -84,7 +82,6 @@ var getRawSteps = function (room1, room2, next) {
     } else {
       getBuildingsLink(room1.building_id, room2.building_id, function (err, floorLink) {
         if (err) return next(err)
-          console.log(floorLink)
         if (floorLink.leftbuilding_id === room1.building_id) {
           var leftFloor = floorLink.left_id
           var rightFloor = floorLink.right_id

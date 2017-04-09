@@ -43,5 +43,8 @@ module.exports = {
   },
   deleteById: function (building_id, next) {
     connection.query('DELETE FROM buildings WHERE building_id = ?', building_id, next)
+  },
+  getFeatured: function (next) {
+    connection.query('SELECT * FROM buildings WHERE picture_url IS NOT NULL', next)
   }
 }

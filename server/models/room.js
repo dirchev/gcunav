@@ -52,5 +52,8 @@ module.exports = {
     } else {
       this.getAll(next)
     }
+  },
+  getFeatured: function (next) {
+    connection.query('SELECT * FROM rooms WHERE picture_url IS NOT NULL', next)
   }
 }

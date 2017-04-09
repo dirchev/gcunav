@@ -40,7 +40,11 @@ module.exports = function (helpers) {
       loadBuilding,
       loadFloorRooms,
       function (req, res, next) {
-        res.viewData = {building: req.building, floor: req.floor, rooms: req.rooms}
+        res.viewData = {
+          building: req.building,
+          floor: req.floor,
+          rooms: req.rooms
+        }
         res.view = 'admin/floor'
         next()
       }

@@ -5,25 +5,20 @@
     <div class="container-fluid">
       <%- include('../components/navigation.ejs') %>
 
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h1>Directions</h1>
-          <div class="row">
-            <div class="col-sm-6">
-              From <strong><%= start.name + ' in ' + start.building_name %></strong>
-            </div>
-            <div class="col-sm-6">
-              To <strong><%= end.name + ' in ' + end.building_name %></strong>
-            </div>
+      <div class="box box-sm">
+        <h1>Directions</h1>
+        <p>
+          From <strong><%= start.name + ' in ' + start.building_name %></strong> <br/>
+          To <strong><%= end.name + ' in ' + end.building_name %></strong>
+        </p>
+      </div>
+
+      <div>
+        <% steps.forEach( function (step, index) { %>
+          <div class="box text-big">
+            <%= (index + 1) + ' ' + step.text %>
           </div>
-        </div>
-        <div class="list-group">
-          <% steps.forEach( function (step, index) { %>
-            <div class="list-group-item">
-              <%= (index + 1) + ' ' + step.text %>
-            </div>
-          <% }) %>
-        </div>
+        <% }) %>
       </div>
 
     </div>

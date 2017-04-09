@@ -5,27 +5,31 @@
     <div class="container-fluid">
       <%- include('../components/navigation.ejs') %>
 
-      <div class="panel panel-primary">
-        <div class="panel-heading">Search a place</div>
-        <div class="panel-body">
-          <form class="form" action="/search-place" method="GET">
-            <div class="form-group">
-              <input type="text" value="<%= searchText %>" class="form-control" name="text" placeholder="Search a place" />
-            </div>
-            <button type="submit" class="btn btn-primary">Search</button>
-          </form>
+      <div class="box box-sm">
+        <h1>Search a Place</h1>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="box">
+            <form class="form" action="/search-place" method="GET">
+              <div class="form-group">
+                <input type="text" value="<%= searchText %>" class="form-control" name="text" placeholder="Search a place" />
+              </div>
+              <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+          </div>
         </div>
-        <% if (typeof rooms !== 'undefined') { %>
-          <div class="list-group">
+
+        <div class="col-sm-8">
+          <% if (typeof rooms !== 'undefined') { %>
             <% rooms.forEach(function (room) { %>
-              <a class="list-group-item" href="/room/<%= room.room_id %>">
-                <h4 class="list-group-item-heading"><%= room.name %></h4>
+              <a class="box" href="/room/<%= room.room_id %>">
+                <h4 class="box-heading"><%= room.name %></h4>
+                <p><%= room.description %></p>
               </a>
             <% }) %>
-          </div>
-        <% } %>
+          <% } %>
       </div>
-
     </div>
   <%- include('../layout/body-end.ejs') %>
   </body>

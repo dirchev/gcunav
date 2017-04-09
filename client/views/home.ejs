@@ -2,78 +2,72 @@
 <html lang="en">
   <%- include('../layout/head.ejs') %>
   <body style="padding-top: 60px;">
-
   <%- include('../components/navigation.ejs') %>
-  <div class="jumbotron">
-    <div class="container text-center">
-      <h1>
-        Welcome
-      </h1>
+	<div class="container-fluid">
+    <div class="box box-sm">
+      <h1 class="text-center">GCU Tour Guide</h1>
     </div>
-  </div>
 
-	<div class="container">
-		<div class="box">
-			<div class="row">
-				<div class="col-lg-12 text-cent">
-					<section>
-						<div class="page-header text-center" id="gallery">
-							<hr>
-							<h2><strong>...to Glasgow Caledonian University!</strong></h2>
-						</div>
-						<div class="carousel slide" id="screenshot-carousel" data-ride="carousel">
-							<ol class="carousel-indicators">
-								<li data-target="#screenshot-carousel" data-slide-to="0" class="active"></li>
-								<li data-target="#screenshot-carousel" data-slide-to="1"></li>
-								<li data-target="#screenshot-carousel" data-slide-to="2"></li>
-								<li data-target="#screenshot-carousel" data-slide-to="3"></li>
-							</ol>
-							<div class="carousel-inner">
-								<div class="item active">
-									<img src="/images/govan-mbeki-building.jpg" alt="Govan Mbeki Building" />
-									<div class="carousel-caption">
-										<h3>Govan Mbeki Building</h3>
-									</div>
-								</div>
-								<div class="item">
-									<img src="/images/library.jpg" alt="Library">
-									<div class="carousel-caption">
-										<h3>Library</h3>
-									</div>
-								</div>
-								<div class="item">
-									<img src="/images/carnegie-lecture-hall.png" alt="Carnegie Lecture Hall">
-									<div class="carousel-caption">
-										<h3>Carnegie Lecture Hall</h3>
-									</div>
-								</div>
-								<div class="item">
-									<img src="/images/saltire-centre.jpg" alt="Saltire Centre">
-									<div class="carousel-caption">
-										<h3>Saltire Centre</h3>
-									</div>
-								</div>
-							</div>
-							<a href="#screenshot-carousel" class="left carousel-control" data-slide="prev">
-								<span class="glyphicon glyphicon-chevron-left"></span>
-							</a>
-							<a href="#screenshot-carousel" class="right carousel-control" data-slide="next">
-								<span class="glyphicon glyphicon-chevron-right"></span>
-							</a>
-						</div>
-					</section>
-				</div>
-			</div>
-		</div>
+    <div class="row">
+
+      <div class="col-md-7">
+        <div class="box box-sm">
+          <h2>Featured Buildings</h2>
+          <div class="row">
+            <% featuredBuildings.forEach(function (building) { %>
+              <div class="col-xs-6 col-md-3">
+                <a href="/building/<%= building.building_id %>" class="thumbnail">
+                  <img src="<%= building.picture_url %>" alt="...">
+                  <div class="caption text-center">
+                    <%= building.name %>
+                  </div>
+                </a>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="box box-sm">
+          <h2>Featured Places</h2>
+          <section>
+            <div class="carousel slide" id="screenshot-carousel" data-ride="carousel">
+             <ol class="carousel-indicators">
+                <% featuredRooms.forEach(function (room, index) { %>
+                <li data-target="#carousel-example-generic" data-slide-to="<%= index %>" class="<%= index === 0 ? 'active' : ''%>" ></li>
+                <% }) %>
+              </ol>
+              <div class="carousel-inner">
+                <% featuredRooms.forEach(function (room, index) { %>
+                  <div class="item <%= index === 0 ? 'active' : ''%>">
+                    <img src="<%= room.picture_url %>" alt="Photo of <%= room.name%>" />
+                    <div class="carousel-caption">
+                      <h3><%= room.name %></h3>
+                      <a href="/room/<%= room.room_id%>">More info</a>
+                    </div>
+                  </div>
+                <% }) %>
+              </div>
+              <a href="#screenshot-carousel" class="left carousel-control" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a href="#screenshot-carousel" class="right carousel-control" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+
+    </div>
 	</div>
-<div class="container">
+
 	<div class="box">
 		<div class="row">
 			<div class="col-lg-12 text-cent">
 				<div class="container">
 					<section>
 						<div class="page-header" id="events">
-							<hr>
 							<h2>
 							<strong>Events</strong>
 							</h2>
@@ -108,7 +102,7 @@
 	</div>
 </div>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="box">
 			<div class="row">
 				<div class="col-lg-12">
@@ -139,6 +133,7 @@
 			</div>
 		</div>
 	</div>
+
   <%- include('../layout/body-end.ejs') %>
   </body>
 </html>

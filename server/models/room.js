@@ -13,6 +13,8 @@ module.exports = {
       `
         SELECT
           rooms.*,
+          buildings.building_id,
+          floors.floor_id,
           buildings.name as building_name,
           floors.name as floor_name
         FROM rooms

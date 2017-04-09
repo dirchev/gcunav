@@ -18,13 +18,16 @@ module.exports = function (room1, room2, next) {
 }
 
 var stepToHuman = function (step) {
+  var text = ''
   if (step.action === 'floor') {
-    return 'Go to ' + step.to.floor_name + ' floor in ' + step.to.building_name + '.'
+    text = 'Go to ' + step.to.floor_name + ' floor in ' + step.to.building_name + '.'
   } else if (step.action === 'room') {
-    return 'Go to ' + step.to.name + '.'
+    text = 'Go to ' + step.to.name + '.'
   } else if (step.action === 'building') {
-    return 'Go to ' + step.to.name + ' building.'
+    text = 'Go to ' + step.to.name + ' building.'
   }
+  step.text = text
+  return step
 }
 
 var populateStep = function (step, next) {
@@ -65,6 +68,8 @@ var getRawSteps = function (room1, room2, next) {
     var room1 = rooms[0]
     var room2 = rooms[1]
 
+    console.log(JSON.stringify(room1, null, 2))
+    console.log(JSON.stringify(room2, null, 2))
     if (room1.building_id === room2.building_id) {
       steps.push({
         action: 'floor',
@@ -77,8 +82,6 @@ var getRawSteps = function (room1, room2, next) {
       })
       return next(null, steps)
     } else {
-      console.log(room1.building_id)
-      console.log(room2.building_id)
       getBuildingsLink(room1.building_id, room2.building_id, function (err, floorLink) {
         if (err) return next(err)
           console.log(floorLink)

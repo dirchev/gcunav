@@ -17,7 +17,7 @@ module.exports = function (helpers) {
   }
   var loadEndRoom = function (req, res, next) {
     if (req.query.end) {
-      Room.getByIdPopulated(req.query.start, function (err, room) {
+      Room.getByIdPopulated(req.query.end, function (err, room) {
         if (err) return next(err)
         req.endPoint = room
         next()

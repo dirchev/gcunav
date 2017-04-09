@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head.ejs') %>
+  <body style="padding-top: 60px;">
+    <div class="container-fluid">
+      <%- include('../components/navigation.ejs') %>
+
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              Search For A place
+            </div>
+            <div class="panel-body">
+              <form id="searchForm" class="form">
+                <div class="form-group">
+                  <input type="text" value="" class="form-control" name="text" placeholder="Search a place" />
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+              </form>
+            </div>
+            <div class="list-group" id="searchResults"></div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              Navigate Me
+            </div>
+            <form id="navForm" action="/navigate" method="GET" class="form">
+              <div class="panel-body">
+                <div class="form-group">
+                  <label for="">Start</label>
+                  <input type="hidden" name="start" class="form-control">
+                  <input type="text" name="startText" disabled class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="">End</label>
+                  <input type="hidden" name="end" class="form-control">
+                  <input type="text" name="endText" disabled class="form-control">
+                </div>
+              </div>
+              <div class="panel-footer">
+                <button class="btn btn-primary btn-block">Navigate</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var searchFrom = document.getElementById('searchForm')
+        searchForm.addEventListener('submit', function (e) {
+          e.preventDefault()
+          var searchTerm = searchForm.text.value
+          console.log(searchTerm)
+          $.getJSON('/api/search-place?text=' + encodeURI(searchTerm), function (results) {
+            document.getElementById('searchResults').innerHTML = ''
+            results.forEach(function (room) {
+              renderRoom(room)
+            })
+          })
+        })
+        var renderRoom = function (room) {
+          var root = document.createElement('a')
+          root.classList.add('list-group-item')
+          root.appendChild(document.createTextNode(room.name))
+          root.addEventListener('click', setRoom(room))
+          document.getElementById('searchResults').appendChild(root)
+        }
+
+        var setRoom = function (room) {
+          return function (e) {
+            e.preventDefault()
+            var navForm = document.getElementById('navForm')
+            if (navForm.start.value) {
+              navForm.end.value = room.room_id
+              navForm.endText.value = room.name
+            } else {
+              navForm.start.value = room.room_id
+              navForm.startText.value = room.name
+            }
+          }
+        }
+      })()
+    </script>
+    <%- include('../layout/body-end.ejs') %>
+  </body>
+</html>

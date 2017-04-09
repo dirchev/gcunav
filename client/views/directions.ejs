@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head.ejs') %>
+  <body style="padding-top: 60px;">
+    <div class="container-fluid">
+      <%- include('../components/navigation.ejs') %>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h1>Directions</h1>
+          <div class="row">
+            <div class="col-sm-6">
+              From <strong><%= start.name + ' in ' + start.building_name %></strong>
+            </div>
+            <div class="col-sm-6">
+              To <strong><%= end.name + ' in ' + end.building_name %></strong>
+            </div>
+          </div>
+        </div>
+        <div class="list-group">
+          <% steps.forEach( function (step, index) { %>
+            <div class="list-group-item">
+              <%= (index + 1) + ' ' + step %>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+    </div>
+    <%- include('../layout/body-end.ejs') %>
+  </body>
+</html>

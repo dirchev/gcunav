@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../../layout/head.ejs') %>
+  <body style="padding-top: 10px;">
+    <div class="container-fluid">
+
+      <%- include('../../components/admin-navigation.ejs') %>
+      <div class="jumbotron">
+        <h1>Events</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <%- include('../../components/admin/events/form.ejs') %>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Events list
+            </div>
+            <div class="list-group">
+              <% events.forEach(function (event) { %>
+                <a class="list-group-item" href="/admin/events/<%= event.event_id %>">
+                  <h4 class="list-group-item-heading">
+                    <%= event.name %>
+                  </h4>
+                </a>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('../../layout/body-end.ejs') %>
+  </body>
+</html>

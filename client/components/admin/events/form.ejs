@@ -1,0 +1,104 @@
+<% if (typeof event === 'undefined') { %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      New Event
+    </div>
+    <div class="panel-body">
+      <form enctype="multipart/form-data" class="form" action="/admin/events" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" value="" class="form-control" name="name" placeholder="Name" />
+        </div>
+        <div class="form-group">
+          <label for="name">Description</label>
+          <textarea name="description" rows="3" class="form-control" placeholder="Description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="name">Thumbnail</label>
+          <input type="file" value="" class="form-control" name="thumbnail" />
+        </div>
+        <div class="form-group">
+          <label for="name">Poster</label>
+          <input type="file" value="" class="form-control" name="poster" />
+        </div>
+        <div class="form-group">
+          <label for="name">Room</label>
+          <select name="room_id" class="form-control">
+            <option value="">Select a room</option>
+            <% buildings.forEach(function (building) { %>
+            <optgroup label="<%= building.name %>">
+              <% building.rooms.forEach(function (room) {%>
+                <option value="<%= room.room_id %>"><%= room.name %></option>
+              <% }) %>
+            </optgroup>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="name">Date and Time</label>
+          <input type="datetime-local" value="" class="form-control" name="datetime" />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+    </div>
+  </div>
+<% } else { %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Edit Event
+    </div>
+    <div class="panel-body">
+      <form enctype="multipart/form-data" class="form" action="/admin/events/<%= event.event_id %>" method="POST">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" value="<%= event.name %>" class="form-control" name="name" placeholder="Name" />
+        </div>
+        <div class="form-group">
+          <label for="name">Description</label>
+          <textarea name="description" rows="3" class="form-control" placeholder="Description"><%= event.description %></textarea>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label for="name">Thumbnail</label>
+              <input type="file" class="form-control" name="thumbnail" />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <img src="<%= event.thumbnail_url %>" class="img-responsive" alt="">
+          </div>
+        </div>
+        <div class="row" style="margin-top: 4px;">
+          <div class="col-sm-8">
+            <div class="form-group">
+              <label for="name">Poster</label>
+              <input type="file" value="<%= event.event_id%>" class="form-control" name="poster" />
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <img src="<%= event.poster_url %>" class="img-responsive" alt="">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Room</label>
+          <select name="room_id" class="form-control">
+            <option value="">Select a room</option>
+            <% buildings.forEach(function (building) { %>
+            <optgroup label="<%= building.name %>">
+              <% building.rooms.forEach(function (room) {%>
+              <option value="<%= room.room_id %>" <%= room.room_id === event.room_id ? 'selected' : ''%>><%= room.name %></option>
+              <% }) %>
+            </optgroup>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="name">Date and Time</label>
+          <input type="datetime-local" value="<%= event.datetime.toISOString().slice(0, 22) %>" class="form-control" name="datetime" />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+    </div>
+  </div>
+<% } %>

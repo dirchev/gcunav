@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head.ejs') %>
+  <body style="padding-top: 60px;">
+    <div class="container-fluid">
+
+      <%- include('../components/navigation.ejs') %>
+
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="box box-sm">
+            <h1><%= event.name  %></h1>
+          </div>
+          <div class="box box-sm" style="padding-top: 20px">
+            <p>
+              <%= event.description%>
+            </p>
+            <% if (event.poster_url) {%>
+              <img src="<%= event.poster_url%>" class="img-responsive" alt="">
+            <% } %>
+            <div class="row">
+              <div class="col-xs-6">
+                <h3>Time</h3>
+                <div>
+                  <%= new Date(event.datetime).toLocaleString() %>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <h3>Place</h3>
+                <div>
+                  <%= event.room_name %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="box box-sm">
+            <img src="<%= event.thumbnail_url %>" class="img-responsive full-width" alt="">
+          </div>
+          <div class="box">
+            <h2>
+              Navigate Me From
+            </h2>
+            <form id="searchForm" class="form">
+              <div class="form-group">
+                <input type="hidden" value="" name="floor_id"/>
+                <label for="name">Starting Location</label>
+                <input type="text" class="form-control" name="text" placeholder="Enter starting location..." />
+              </div>
+              <button type="submit" class="btn btn-primary">Navigate</button>
+            </form>
+          </div>
+          <div id="searchResults"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var searchFrom = document.getElementById('searchForm')
+        searchForm.addEventListener('submit', function (e) {
+          e.preventDefault()
+          var searchTerm = searchForm.text.value
+          $.getJSON('/api/search-place?text=' + encodeURI(searchTerm), function (results) {
+            document.getElementById('searchResults').innerHTML = ''
+            results.forEach(function (room) {
+              renderRoom(room)
+            })
+          })
+        })
+        var renderRoom = function (room) {
+          var root = document.createElement('a')
+          root.classList.add('box')
+
+          // heading
+          var heading = document.createElement('h4')
+          heading.classList.add('box-heading')
+          heading.appendChild(document.createTextNode(room.name))
+          root.appendChild(heading)
+
+          // description
+          var desc = document.createElement('p')
+          desc.appendChild(document.createTextNode(room.description))
+          root.appendChild(desc)
+
+          root.addEventListener('click', navigateFrom(room.room_id))
+          document.getElementById('searchResults').appendChild(root)
+        }
+
+        var navigateFrom = function (room1) {
+          var room2 = "<%= event.room_id %>"
+          return function (e) {
+            e.preventDefault()
+            window.location = '/navigate?start=' + room1 + '&end=' + room2
+          }
+        }
+      })()
+    </script>
+    <%- include('../layout/body-end.ejs') %>
+  </body>
+</html>

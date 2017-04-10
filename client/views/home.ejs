@@ -63,57 +63,42 @@
 	</div>
 
 	<div class="box">
-		<div class="row">
-			<div class="col-lg-12 text-cent">
-				<div class="container">
-					<section>
-						<div class="page-header" id="events">
-							<h2>
-							<strong>Events</strong>
-							</h2>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<p>Leading actors celebrate success of industry-renowned screenwriting programme</p>
-								<blockquote>
-									<p>Stars of the stage and silver screen will attend a special event to celebrate the success of one of the UKs leading screenwriting courses.</p>
-									<footer>17 March 2017</footer>
-								</blockquote>
-							</div>
-							<div class="col-md-4">
-								<p>Artist Gerard M Burns launches new exhibition at GCU</p>
-								<blockquote>
-									<p>Scots artist Gerard M Burns' portraits of Billy Connolly and First Minister Nicola Sturgeon will be exhibited at a public exhibition of his work at Glasgow Caledonian University (GCU) this month.</p>
-									<footer>16 March 2017</footer>
-								</blockquote>
-							</div>
-							<div class="col-md-4">
-								<p>GCU to host global gathering of enterprise organisations</p>
-								<blockquote>
-									<p>Glasgow Caledonian University (GCU) is hosting the 2017 International Entrepreneurship Educators Conference (IEEC), the leading global gathering of enterprise and entrepreneurship educators and practitioners.</p>
-									<footer>14 March 2017</footer>
-								</blockquote>
-							</div>
-						</div>
-					</section>
-				</div>
-			</div>
-		</div>
+    <div class="container">
+      <h2>
+        <strong>Events</strong>
+      </h2>
+      <div class="row">
+        <% featuredEvents.forEach(function (event) {%>
+          <div class="col-md-4">
+            <h3>
+              <a href="/event/<%= event.event_id %>">
+                <%= event.name %>
+              </a>
+            </h3>
+            <p><%= event.description %></p>
+            <div class="row">
+              <div class="col-xs-6">
+                <time><%= new Date(event.datetime).toLocaleTimeString() %></time>
+              </div>
+              <div class="col-xs-6">
+                <%= event.room_name %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
 	</div>
 </div>
 
 	<div class="container-fluid">
 		<div class="box">
-			<div class="row">
-				<div class="col-lg-12">
-					<hr>
-					<h2>
-					<strong>GCU Contact Information</strong>
-					</h2>
-					<hr>
-				</div>
-				<div class="col-md-8">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2238.7989943508574!2d-4.252992784393185!3d55.86615378058381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4888441f6d37e73b%3A0xe44f66a88fe29ff5!2sGlasgow+Caledonian+University!5e0!3m2!1sen!2suk!4v1490676983856" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+      <h2>
+        <strong>GCU Contact Information</strong>
+      </h2>
+      <div class="row">
+        <div class="col-md-8">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2238.7989943508574!2d-4.252992784393185!3d55.86615378058381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4888441f6d37e73b%3A0xe44f66a88fe29ff5!2sGlasgow+Caledonian+University!5e0!3m2!1sen!2suk!4v1490676983856" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
 				</div>
 				<div class="col-md-4">
 					<p>

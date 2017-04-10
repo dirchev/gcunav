@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../layout/head.ejs') %>
+  <body style="padding-top: 60px;">
+    <div class="container-fluid">
+      <%- include('../components/navigation.ejs') %>
+
+      <div class="box box-sm">
+        <h2>
+          Upcoming Events
+        </h2>
+      </div>
+
+      <div class="row">
+        <% upcomingEvents.forEach(function (event) { %>
+          <div class="col-sm-4">
+            <a href="/events/<%= event.event_id %>" class="thumbnail">
+              <img src="<%= event.thumbnail_url %>">
+              <div class="caption">
+                <h3><%= event.name %></h3>
+                <p><%= event.description.slice(0, 60) + '...' %></p>
+              </div>
+            </a>
+          </div>
+        <% }) %>
+      </div>
+
+      <div class="box box-sm">
+        <h2>
+          All Events
+        </h2>
+      </div>
+
+      <div class="row">
+        <% allEvents.forEach(function (event) { %>
+          <div class="col-sm-3">
+            <a href="/events/<%= event.event_id %>" class="box">
+              <h3><%= event.name %></h3>
+              <p><%= event.description.slice(0, 60) + '...' %></p>
+              <p class="small">
+                <strong>Date:</strong> <%= new Date(event.datetime).toLocaleString() %> <br/>
+                <strong>Location:</strong> <%= event.room_name %> <br/>
+              </p>
+            </a>
+          </div>
+        <% }) %>
+      </div>
+
+    </div>
+
+    <%- include('../layout/body-end.ejs') %>
+  </body>
+</html>

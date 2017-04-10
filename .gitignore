@@ -2,3 +2,5 @@ node_modules
 secret/*
 !secret/.gitkeep
 public/uploads/*
+temp/*
+!temp/.gitkeep

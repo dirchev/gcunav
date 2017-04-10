@@ -11,6 +11,10 @@
           From <strong><%= start.name + ' in ' + start.building_name %></strong> <br/>
           To <strong><%= end.name + ' in ' + end.building_name %></strong>
         </p>
+        <a class="btn btn-sm btn-default" href="/navigate?start=<%= end.room_id %>&end=<%= start.room_id %>">
+          <i class="fa fa-exchange"></i>
+          Swap
+        </a>
       </div>
 
       <div class="box">

@@ -55,5 +55,16 @@ module.exports = {
   },
   getFeatured: function (next) {
     connection.query('SELECT * FROM rooms WHERE picture_url IS NOT NULL', next)
+  },
+  getByBuildingId: function (building_id, next) {
+    connection.query(
+      `
+        SELECT rooms.* FROM rooms
+        INNER JOIN floors ON floors.floor_id = rooms.floor_id
+        WHERE floors.building_id = ?
+      `,
+      building_id,
+      next
+    )
   }
 }

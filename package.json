@@ -22,6 +22,7 @@
     "multer": "^1.3.0",
     "mysql": "^2.13.0",
     "node-uuid": "^1.4.8",
+    "qrcode": "^0.8.1",
     "sort-stream": "^1.0.1"
   }
 }

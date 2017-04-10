@@ -13,8 +13,14 @@
         </p>
       </div>
 
+      <div class="box">
+        <h4>Audio Navigations</h4>
+        <audio controls>
+          <source src="/api/say?text=<%= encodeURI(steps.map(function (s, i) { return (i + 1) + ' ' +  s.text }).join(' '))%>"></source>
+        </audio>
+      </div>
       <div>
-        <% steps.forEach( function (step, index) { %>
+        <% steps.forEach(function (step, index) { %>
           <div class="box text-big">
             <%= (index + 1) + ' ' + step.text %>
           </div>

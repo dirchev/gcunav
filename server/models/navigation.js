@@ -31,7 +31,7 @@ var stepToHuman = function (step) {
 }
 
 var populateStep = function (step, next) {
-  if (step.action === 'floor') {
+  if (step.action === 'floor' && step.from) {
     Floor.getByIdPopulated(step.from, function (err, floors) {
       if (err) return next(err)
       step.from = floors[0]
@@ -40,6 +40,12 @@ var populateStep = function (step, next) {
         step.to = floors[0]
         next(null, step)
       })
+    })
+  } else if (step.action === 'floor' && !step.from) {
+    Floor.getByIdPopulated(step.to, function (err, floors) {
+      if (err) return next(err)
+      step.to = floors[0]
+      next(null, step)
     })
   } else if (step.action === 'room') {
     Room.getById(step.to, function (err, rooms) {
@@ -82,6 +88,22 @@ var getRawSteps = function (room1, room2, next) {
     } else {
       getBuildingsLink(room1.building_id, room2.building_id, function (err, floorLink) {
         if (err) return next(err)
+        if (!floorLink) {
+          steps.push({
+            action: 'building',
+            from: room1.building_id,
+            to: room2.building_id
+          })
+          steps.push({
+            action: 'floor',
+            to: room2.floor_id
+          })
+          steps.push({
+            action: 'room',
+            to: room2.room_id
+          })
+          return next(null, steps)
+        }
         if (floorLink.leftbuilding_id === room1.building_id) {
           var leftFloor = floorLink.left_id
           var rightFloor = floorLink.right_id

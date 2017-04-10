@@ -10,6 +10,10 @@ body {
   font-size: 1.4em;
 }
 
+.full-width {
+  width: 100% !important;
+}
+
 .box {
 	margin-bottom: 20px;
 	padding: 30px 30px;

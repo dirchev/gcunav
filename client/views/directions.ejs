@@ -15,8 +15,8 @@
 
       <div class="box">
         <h4>Audio Navigations</h4>
-        <audio controls>
-          <source src="/api/say?text=<%= encodeURI(steps.map(function (s, i) { return (i + 1) + ' ' +  s.text }).join(' '))%>"></source>
+        <audio class="full-width" controls>
+          <source src="/api/say?text=<%= encodeURI('First ' + steps.map(function (s, i) { return s.text }).join(' Then '))%>"></source>
         </audio>
       </div>
       <div>

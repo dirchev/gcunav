@@ -22,12 +22,18 @@
 
           <div class="box">
             <h2>
-              Navigate Me From
+              Navigate Me
             </h2>
             <form id="searchForm" class="form">
+              <input type="hidden" value="" name="floor_id"/>
               <div class="form-group">
-                <input type="hidden" value="" name="floor_id"/>
-                <label for="name">Starting Location</label>
+                <select id="direction" name="direction" class="form-control">
+                  <option value="from">From</option>
+                  <option value="to">To</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="name">Location</label>
                 <input type="text" class="form-control" name="text" placeholder="Enter starting location..." />
               </div>
               <button type="submit" class="btn btn-primary">Navigate</button>
@@ -68,15 +74,20 @@
           desc.appendChild(document.createTextNode(room.description))
           root.appendChild(desc)
 
-          root.addEventListener('click', navigateFrom(room.room_id))
+          root.addEventListener('click', navigate(room.room_id))
           document.getElementById('searchResults').appendChild(root)
         }
 
-        var navigateFrom = function (room1) {
+        var navigate= function (room1) {
           var room2 = "<%= room.room_id %>"
           return function (e) {
             e.preventDefault()
-            window.location = '/navigate?start=' + room1 + '&end=' + room2
+            var direction = document.getElementById('direction').value
+            if (direction === 'to') {
+              window.location = '/navigate?start=' + room2 + '&end=' + room1
+            } else {
+              window.location = '/navigate?start=' + room1 + '&end=' + room2
+            }
           }
         }
       })()

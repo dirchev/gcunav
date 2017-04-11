@@ -9,7 +9,7 @@
         <h1>Navigate Me</h1>
       </div>
       <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-8" id="searchBox">
           <div class="box">
             <h2>
               Search For a Place
@@ -37,7 +37,14 @@
                 <input type="hidden" name="end" class="form-control">
                 <input type="text" name="endText" disabled class="form-control">
               </div>
-              <button class="btn btn-primary btn-block">Navigate</button>
+              <div class="row">
+                <div class="col-xs-9">
+                  <button class="btn btn-primary btn-block">Navigate</button>
+                </div>
+                <div class="col-xs-3">
+                  <button class="btn btn-default btn-block" type="button" id="formClear">Clear</button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -46,6 +53,16 @@
 
     <script>
       (function () {
+        var clearButton = document.getElementById('formClear')
+        clearButton.addEventListener('click', function (e) {
+          e.preventDefault()
+          var navForm = document.getElementById('navForm')
+          navForm.start.value = ''
+          navForm.end.value = ''
+          navForm.startText.value = ''
+          navForm.endText.value = ''
+        })
+
         var searchFrom = document.getElementById('searchForm')
         searchForm.addEventListener('submit', function (e) {
           e.preventDefault()
@@ -84,6 +101,7 @@
             if (navForm.start.value) {
               navForm.end.value = room.room_id
               navForm.endText.value = room.name
+              document.getElementById('searchBox').classList.add('hidden-xs')
             } else {
               navForm.start.value = room.room_id
               navForm.startText.value = room.name

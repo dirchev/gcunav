@@ -8,28 +8,23 @@
       <div class="box box-sm">
         <h1>Search a Place</h1>
       </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="box">
-            <form class="form" action="/search-place" method="GET">
-              <div class="form-group">
-                <input type="text" value="<%= searchText %>" class="form-control" name="text" placeholder="Search a place" />
-              </div>
-              <button type="submit" class="btn btn-primary">Search</button>
-            </form>
+      <div class="box">
+        <form class="form" action="/search-place" method="GET">
+          <div class="form-group">
+            <input type="text" value="<%= searchText %>" class="form-control" name="text" placeholder="Search a place" />
           </div>
-        </div>
-
-        <div class="col-sm-8">
-          <% if (typeof rooms !== 'undefined') { %>
-            <% rooms.forEach(function (room) { %>
-              <a class="box" href="/room/<%= room.room_id %>">
-                <h4 class="box-heading"><%= room.name %></h4>
-                <p><%= room.description %></p>
-              </a>
-            <% }) %>
-          <% } %>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
       </div>
+
+      <% if (typeof rooms !== 'undefined') { %>
+        <% rooms.forEach(function (room) { %>
+          <a class="box" href="/room/<%= room.room_id %>">
+            <h4 class="box-heading"><%= room.name %></h4>
+            <p><%= room.description %></p>
+          </a>
+        <% }) %>
+      <% } %>
     </div>
   <%- include('../layout/body-end.ejs') %>
   </body>
